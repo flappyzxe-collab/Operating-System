@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teerapong Chuenwong</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e8201a;
+    --yellow: #f5a623;
+    --dark: #0a0a0a;
+    --darker: #050505;
+    --text: #e8e0d0;
+    --muted: #9a9080;
+    --card-bg: rgba(20,15,10,0.85);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--darker);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(5,5,5,0.97);
+    border-bottom: 2px solid var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    color: var(--yellow);
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text); text-decoration: none; opacity: 0.75;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--yellow); }
+  .nav-cta { display: flex; gap: 10px; }
+  .btn-primary {
+    background: var(--red); color: #fff;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 900;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 8px 18px; border: none; cursor: pointer;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #c0150f; }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 2px solid rgba(232,224,208,0.5);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 900;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 6px 18px; cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  .hero {
+    position: relative; width: 100%; height: 100vh;
+    min-height: 600px; overflow: hidden;
+    display: flex; align-items: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 55% 80% at 18% 55%, rgba(180,35,10,0.55) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 70% at 72% 38%, rgba(25,70,130,0.40) 0%, transparent 65%),
+      linear-gradient(135deg, #1a0800 0%, #09121c 50%, #030810 100%);
+  }
+  .hero-bg::after {
+    content:'';position:absolute;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+    background-size:200px;opacity:0.5;pointer-events:none;
+  }
+
+  /* Photo area — left side like Far Cry 6 */
+  .hero-photo {
+    position: absolute;
+    bottom: 0; left: 0;
+    /* เปลี่ยนจาก 50% เป็น 60% เพื่อให้รูปใหญ่ขึ้น */
+    width: 60%;
+    max-width: 800px; /* ปรับ max-width ให้เหมาะสม */
+    height: 100%;
+    display: flex; align-items: flex-end;
+    justify-content: center;
+    animation: fadeInLeft 1.1s ease forwards;
+    opacity: 0;
+    /* เลื่อนรูปไปทางขวาเล็กน้อยเพื่อไม่ให้เนื้อหาหลักบัง */
+    transform: translateX(10%);
+  }
+  .hero-photo::before {
+    content:'';position:absolute;bottom:0;left:50%;
+    transform:translateX(-50%);
+    width:80%;height:100%;
+    background:radial-gradient(ellipse 55% 85% at 50% 100%,
+      rgba(230,65,20,0.22) 0%,rgba(255,140,40,0.07) 40%,transparent 70%);
+    pointer-events:none;z-index:1;
+  }
+  /* แก้ไข: เพิ่ม Animation การสลับรูป */
+  .person-img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    /* เปลี่ยนจาก 92% เป็น 100% เพื่อให้รูปสูงเต็มพื้นที่ */
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    object-position: bottom center;
+    filter:
+      drop-shadow(0 0 50px rgba(210,55,20,0.35))
+      drop-shadow(0 0 120px rgba(180,35,10,0.2))
+      contrast(1.05) brightness(1.02);
+    z-index: 2;
+    transition: opacity 1s ease-in-out;
+  }
+
+  /* เพิ่มใหม่: ควบคุมลำดับการโชว์รูป (รูปละ 2 วินาที รวม loop 4 วินาที) */
+  .img-1 { animation: swapImage1 4s infinite; }
+  .img-2 { animation: swapImage2 4s infinite; }
+
+  @keyframes swapImage1 {
+    0%, 45% { opacity: 1; }  /* รูปที่ 1 โชว์ */
+    55%, 95% { opacity: 0; } /* รูปที่ 1 หาย */
+    100% { opacity: 1; }
+  }
+
+  @keyframes swapImage2 {
+    0%, 45% { opacity: 0; }  /* รูปที่ 2 หาย */
+    55%, 95% { opacity: 1; } /* รูปที่ 2 โชว์ */
+    100% { opacity: 0; }
+  }
+
+  /* Gradient to blend photo edges into background */
+  .photo-fade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, transparent 55%, rgba(9,18,28,0.95) 90%),
+      linear-gradient(to top, transparent 85%, rgba(3,8,16,0.7) 100%);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  /* Right content */
+  .hero-content {
+    position: absolute;
+    right: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 52%;
+    padding: 0 55px 0 10px;
+    z-index: 10;
+    animation: fadeInRight 1.1s ease 0.3s forwards;
+    opacity: 0;
+  }
+  .codename {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.35em; color: var(--yellow);
+    text-transform: uppercase; margin-bottom: 12px; opacity: 0.85;
+  }
+  .codename::before { content: '▶ '; color: var(--red); }
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(52px, 7vw, 98px);
+    line-height: 0.88;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: #fff;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.55), 0 0 50px rgba(220,40,20,0.12);
+    margin-bottom: 8px;
+  }
+  .hero-title span {
+    display: block; color: var(--yellow);
+    font-size: 0.55em; letter-spacing: 0.04em;
+  }
+  .hero-divider { width: 60px; height: 3px; background: var(--red); margin: 20px 0; }
+  .hero-position {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--yellow); margin-bottom: 18px;
+  }
+  .hero-description {
+    font-size: 14px; line-height: 1.7;
+    color: rgba(232,224,208,0.72);
+    max-width: 380px; margin-bottom: 28px;
+  }
+  .info-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(245,166,35,0.22);
+    border-left: 3px solid var(--yellow);
+    padding: 18px 22px;
+    max-width: 380px; margin-bottom: 26px;
+    backdrop-filter: blur(12px);
+    animation: fadeInCard 1s ease 0.65s forwards;
+    opacity: 0;
+  }
+  .info-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-icon {
+    width: 28px; height: 28px;
+    background: rgba(232,32,26,0.14);
+    border: 1px solid rgba(232,32,26,0.28);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 13px;
+  }
+  .info-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--red); display: block; margin-bottom: 2px;
+  }
+  .info-value {
+    font-size: 13px; color: var(--text); text-decoration: none;
+    transition: color 0.2s;
+  }
+  a.info-value:hover { color: var(--yellow); }
+  .hero-actions {
+    display: flex; gap: 12px;
+    animation: fadeInCard 1s ease 0.95s forwards;
+    opacity: 0;
+  }
+  .cta-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 900;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 12px 28px; border: none; cursor: pointer;
+    text-decoration: none; display: inline-flex;
+    align-items: center; gap: 8px; transition: all 0.2s;
+  }
+  .cta-btn.primary {
+    background: var(--red); color: #fff;
+    box-shadow: 0 0 22px rgba(232,32,26,0.38);
+  }
+  .cta-btn.primary:hover {
+    background: #c0150f;
+    box-shadow: 0 0 32px rgba(232,32,26,0.55);
+    transform: translateY(-1px);
+  }
+  .cta-btn.secondary {
+    background: transparent; color: var(--text);
+    border: 2px solid rgba(232,224,208,0.38);
+  }
+  .cta-btn.secondary:hover { border-color: var(--yellow); color: var(--yellow); }
+
+  /* Corner decorations */
+  .corner { position: absolute; width: 22px; height: 22px; pointer-events: none; }
+  .corner-tl { top: 12px; left: 12px; border-top: 2px solid var(--yellow); border-left: 2px solid var(--yellow); }
+  .corner-tr { top: 12px; right: 12px; border-top: 2px solid var(--yellow); border-right: 2px solid var(--yellow); }
+  .corner-bl { bottom: 46px; left: 12px; border-bottom: 2px solid var(--yellow); border-left: 2px solid var(--yellow); }
+  .corner-br { bottom: 46px; right: 12px; border-bottom: 2px solid var(--yellow); border-right: 2px solid var(--yellow); }
+
+  .status-bar {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    z-index: 100; background: rgba(5,5,5,0.92);
+    border-top: 1px solid rgba(245,166,35,0.2);
+    height: 36px; display: flex; align-items: center;
+    padding: 0 40px; gap: 32px; backdrop-filter: blur(8px);
+  }
+  .status-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); display: flex; align-items: center; gap: 6px;
+  }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--yellow); animation: pulse 2s ease-in-out infinite; }
+  .status-dot.red { background: var(--red); animation-delay: 0.5s; }
+
+  .scanlines {
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.025) 2px,rgba(0,0,0,0.025) 4px);
+    pointer-events: none; z-index: 200;
+  }
+
+  @keyframes fadeInLeft {
+    from { opacity:0; transform:translateX(-50px); }
+    to   { opacity:1; transform:translateX(0); }
+  }
+  @keyframes fadeInRight {
+    from { opacity:0; transform:translateX(40px) translateY(-50%); }
+    to   { opacity:1; transform:translateX(0) translateY(-50%); }
+  }
+  @keyframes fadeInCard {
+    from { opacity:0; transform:translateX(30px); }
+    to   { opacity:1; transform:translateX(0); }
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; } 50% { opacity:0.3; }
+  }
+
+  /* ปุ่มขยายและเรืองแสง */
+  .btn-primary:hover, .cta-btn.primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--red);
+  }
+
+  .btn-outline:hover, .cta-btn.secondary:hover {
+    border-color: var(--yellow);
+    color: var(--yellow);
+    transform: translateY(-3px);
+  }
+
+  /* เมนูบาร์มีเส้นวิ่งใต้ชื่อ */
+  .nav-links a { position: relative; }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: var(--yellow);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ไอคอนในบัตรข้อมูลหมุนและเด้ง */
+  .info-row { transition: all 0.3s; cursor: pointer; }
+  .info-row:hover { background: rgba(245,166,35,0.05); }
+  .info-row:hover .info-icon {
+    transform: rotate(360deg) scale(1.2);
+    color: var(--yellow);
+    border-color: var(--yellow);
+  }
+/* พื้นหลังเคลื่อนไหว (Particles) */
+/* --- 1. ปรับปรุง Particles ให้มีมิติ (Depth of Field) --- */
+.bg-particles {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden; z-index: 1; pointer-events: none;
+}
+
+.particle {
+  position: absolute; background: var(--yellow);
+  border-radius: 50%; bottom: -20px;
+  animation: floatUp 15s infinite linear;
+}
+
+/* กำหนดขนาดและเอฟเฟกต์เบลอ */
+.p-sm { width: 2px; height: 2px; filter: blur(0px); opacity: 0.15; }
+.p-md { width: 4px; height: 4px; filter: blur(1px); opacity: 0.25; }
+.p-lg { width: 6px; height: 6px; filter: blur(2px); opacity: 0.35; }
+
+/* สุ่มตำแหน่งและเวลาให้แต่ละขนาด (ตัวอย่าง 16 จุด) */
+.particle:nth-child(1) { left: 5%; animation-duration: 20s; animation-delay: 0s; }
+.particle:nth-child(2) { left: 15%; animation-duration: 18s; animation-delay: 2s; }
+.particle:nth-child(3) { left: 25%; animation-duration: 22s; animation-delay: 4s; }
+.particle:nth-child(4) { left: 35%; animation-duration: 16s; animation-delay: 1s; }
+.particle:nth-child(5) { left: 45%; animation-duration: 21s; animation-delay: 3s; }
+.particle:nth-child(6) { left: 55%; animation-duration: 19s; animation-delay: 5s; }
+.particle:nth-child(7) { left: 65%; animation-duration: 23s; animation-delay: 2s; }
+.particle:nth-child(8) { left: 75%; animation-duration: 17s; animation-delay: 6s; }
+.particle:nth-child(9) { left: 85%; animation-duration: 20s; animation-delay: 4s; }
+.particle:nth-child(10) { left: 95%; animation-duration: 22s; animation-delay: 0s; }
+.particle:nth-child(11) { left: 10%; animation-duration: 18s; animation-delay: 1s; }
+.particle:nth-child(12) { left: 30%; animation-duration: 20s; animation-delay: 3s; }
+.particle:nth-child(13) { left: 50%; animation-duration: 16s; animation-delay: 5s; }
+.particle:nth-child(14) { left: 70%; animation-duration: 21s; animation-delay: 2s; }
+.particle:nth-child(15) { left: 90%; animation-duration: 19s; animation-delay: 4s; }
+.particle:nth-child(16) { left: 60%; animation-duration: 23s; animation-delay: 6s; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-110vh) translateX(50px); opacity: 0; }
+}
+
+/* --- 2. การสลับรูปภาพ 2 วินาที + Glitch Effect (ครบสูตรเกมเมอร์) --- */
+
+/* กำหนดสไตล์ Glitch (จะถูกเรียกใช้โดย Animation) */
+.glitch {
+  position: relative;
+  overflow: hidden;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text); /* ต้องเพิ่ม attribute data-text ใน HTML ด้วย */
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: var(--darker); /* สีพื้นหลังเพื่อบังรูป */
+}
+.glitch::before {
+  left: 2px; text-shadow: -2px 0 var(--red);
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+.glitch::after {
+  left: -2px; text-shadow: -2px 0 var(--yellow);
+  clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+
+/* เพิ่มแอนิเมชันให้รูป (สลับและ Glitch แวบๆ) */
+.img-1 { animation: swapAndGlitch1 4s infinite linear; }
+.img-2 { animation: swapAndGlitch2 4s infinite linear; }
+
+@keyframes swapAndGlitch1 {
+  0%, 45% { opacity: 1; filter: blur(0); }
+  /* ช่วง Glitch แวบๆ ตอนสลับ (45% - 50%) */
+  46% { opacity: 0.8; filter: blur(2px) contrast(1.5); transform: translateX(-50%) scale(1.02); }
+  47% { opacity: 0.5; filter: blur(4px) contrast(2); transform: translateX(-50%) scale(0.98); }
+  48% { opacity: 0.8; filter: blur(2px) contrast(1.5); transform: translateX(-50%) scale(1.02); }
+  49%, 95% { opacity: 0; filter: blur(0); }
+  100% { opacity: 1; }
+}
+
+@keyframes swapAndGlitch2 {
+  0%, 45% { opacity: 0; filter: blur(0); }
+  /* ช่วง Glitch แวบๆ ตอนสลับ (45% - 50%) */
+  46% { opacity: 0.2; filter: blur(2px) contrast(1.5); transform: translateX(-50%) scale(1.02); }
+  47% { opacity: 0.5; filter: blur(4px) contrast(2); transform: translateX(-50%) scale(0.98); }
+  48% { opacity: 0.2; filter: blur(2px) contrast(1.5); transform: translateX(-50%) scale(1.02); }
+  49%, 95% { opacity: 1; filter: blur(0); }
+  100% { opacity: 0; }
+}
+
+/* แอนิเมชัน Glitch แบบซ่าๆ (สำหรับขอบรูป) */
+@keyframes glitch-anim-1 {
+  0% { clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); }
+  20% { clip-path: polygon(0 10%, 100% 10%, 100% 55%, 0 55%); }
+  40% { clip-path: polygon(0 20%, 100% 20%, 100% 65%, 0 65%); }
+  60% { clip-path: polygon(0 30%, 100% 30%, 100% 75%, 0 75%); }
+  80% { clip-path: polygon(0 40%, 100% 40%, 100% 85%, 0 85%); }
+  100% { clip-path: polygon(0 50%, 100% 50%, 100% 95%, 0 95%); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%); }
+  20% { clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%); }
+  40% { clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%); }
+  60% { clip-path: polygon(0 90%, 100% 90%, 100% 100%, 0 100%); }
+  80% { clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%); }
+  100% { clip-path: polygon(0 50%, 100% 50%, 100% 90%, 0 90%); }
+}
+
+/* ปรับขนาดไอคอนในปุ่มให้พอดี */
+.btn-primary i, .cta-btn i {
+  margin-right: 8px; /* เว้นระยะห่างระหว่างโลโก้กับตัวอักษร */
+  font-size: 1.1em;
+}
+
+/* เอฟเฟกต์ตอน Hover ให้โลโก้ขยับนิดๆ */
+.btn-primary:hover i, .cta-btn.secondary:hover i {
+  transform: scale(1.2);
+  transition: transform 0.2s;
+}
+
+/* ปรับไอคอนใน Info Card ให้สีแดงเด่นขึ้น */
+.info-row:hover .fa-github {
+  color: var(--yellow);
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="bg-particles">
+  <div class="particle p-sm"></div>
+  <div class="particle p-sm"></div>
+  <div class="particle p-sm"></div>
+  <div class="particle p-sm"></div>
+  <div class="particle p-sm"></div>
+  <div class="particle p-sm"></div>
+  <div class="particle p-md"></div>
+  <div class="particle p-md"></div>
+  <div class="particle p-md"></div>
+  <div class="particle p-md"></div>
+  <div class="particle p-md"></div>
+  <div class="particle p-md"></div>
+  <div class="particle p-lg"></div>
+  <div class="particle p-lg"></div>
+  <div class="particle p-lg"></div>
+  <div class="particle p-lg"></div>
+</div>
+<div class="scanlines"></div>
+
+<nav>
+  <div class="nav-logo">MY PROFILE</div>
+  <ul class="nav-links">
+    <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">Profile</a></li>
+    <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">Skills</a></li>
+    <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">Projects</a></li>
+    <li><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+
+
+    <a href="https://github.com/TeerapongIX" target="_blank" class="btn-primary">
+    <i class="fab fa-github"></i> GITHUB
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <!-- LEFT: Real photo -->
+  <div class="hero-photo">
+    <img src="{{ asset('images/290.png') }}" class="person-img img-1" alt="290">
+    <img src="{{ asset('images/290.png') }}" class="person-img img-2" alt="290 alternate">
+  </div>
+
+  <!-- RIGHT: Content -->
+  <div class="hero-content">
+    <p class="codename">Active</p>
+    <h1 class="hero-title">
+      TEERAPONG
+      <span>Chuenwong</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-position">Support Engineer</p>
+    <p class="hero-description">
+      นักพัฒนาและผู้เชี่ยวชาญด้าน Support Engineering มุ่งมั่นในการแก้ปัญหาและพัฒนาระบบให้มีประสิทธิภาพสูงสุด
+    </p>
+    <div class="info-card">
+      <div class="info-row">
+        <div class="info-icon">✉</div>
+        <div>
+          <span class="info-label">Email</span>
+          <a href="mailto:67160290@go.buu.ac.th" class="info-value">67160290@go.buu.ac.th</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">☎</div>
+        <div>
+          <span class="info-label">Phone</span>
+          <a href="tel:0839102560" class="info-value">083-910-2560</a>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon"><i class="fab fa-github"></i></div>
+        <div>
+          <span class="info-label">GitHub</span>
+          <a href="https://github.com/TeerapongIX" target="_blank" class="info-value">github.com/TeerapongIX</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="https://www.instagram.com/mxerapong__/" target="_blank" class="cta-btn primary">▶Instagram</a>
+      <a href="https://github.com/TeerapongIX" target="_blank" class="cta-btn secondary">
+      <i class="fab fa-github"></i> GITHUB
+</a>
+    </div>
+  </div>
+</section>
+
+<div class="status-bar">
+  <div class="status-item"><div class="status-dot"></div> Available for work</div>
+  <div class="status-item"><div class="status-dot red"></div> Support Engineer</div>
+  <div class="status-item">BUU // Burapha University</div>
+</div>
+
+</body>
+</html>
