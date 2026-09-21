@@ -42,6 +42,33 @@ body {
     color: #64748b;
 }
 
+.system-details {
+    background: rgba(255,255,255,0.8);
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 42px;
+    box-shadow: 0 10px 30px rgba(30,58,138,0.08);
+}
+
+.system-details h2 {
+    margin-bottom: 18px;
+    color: #1e3a8a;
+    text-align: center;
+    font-size: 28px;
+}
+
+.system-details p {
+    margin: 10px 0;
+    color: #334155;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.system-details strong {
+    color: #1e3a8a;
+}
+
 /* grid */
 .card-container {
     display: grid;
@@ -134,6 +161,15 @@ body {
 
 <div class="wrapper">
 
+    <section class="system-details">
+        <h2>รายละเอียดของระบบ AccOne</h2>
+        <p><strong>วัตถุประสงค์:</strong>พัฒนาขึ้นเพื่อเป็นระบบยืนยันตัวตนส่วนกลาง
+และ Web Portal สําหรับเข้าถึงระบบปลายทางต่าง ๆ </p>
+        <p><strong>เครื่องมือที่ใช้:</strong> Visual Studio Code, GitHub, Figma</p>
+        <p><strong>เทคโนโลยี:</strong> HTML, CSS, TypeScript</p>
+        <p><strong>เฟรมเวิร์ก:</strong> Next.js, Express.js</p>
+    </section>
+
     <header class="header">
         <h1>💙 Team 1 </h1>
         <p>Meet our awesome team members</p>
@@ -149,7 +185,7 @@ body {
             <p>Project Manager</p>
         </div>
 
-        <div class="card" onclick="'">
+        <div class="card" onclick="">
             <div class="avatar">
                 <img src="">
             </div>
