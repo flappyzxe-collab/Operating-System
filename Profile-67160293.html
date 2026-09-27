@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nopparuch Lanumthiang | Profile</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #070b1a;
+    --accent: #3b82f6;
+    --accent-2: #8b5cf6;
+    --accent-3: #22d3ee;
+    --text: #0f172a;
+    --muted: #64748b;
+    --line: #e2e8f0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', 'Prompt', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+    overflow-x: hidden;
+}
+
+/* พื้นหลังแบบ blob เคลื่อนไหว */
+.blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.55;
+    z-index: 0;
+    animation: float 18s ease-in-out infinite alternate;
+}
+
+.blob.b1 { width: 480px; height: 480px; background: var(--accent);   top: -120px; left: -100px; }
+.blob.b2 { width: 420px; height: 420px; background: var(--accent-2); bottom: -140px; right: -80px; animation-delay: -6s; }
+.blob.b3 { width: 300px; height: 300px; background: var(--accent-3); top: 45%; left: 55%; opacity: 0.3; animation-delay: -12s; }
+
+@keyframes float {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(60px, -40px) scale(1.1); }
+    100% { transform: translate(-40px, 50px) scale(0.95); }
+}
+
+/* ลายกริดจาง ๆ */
+.grid-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+}
+
+/* ปุ่มกลับ */
+.back {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 10;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+.back:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateX(-4px);
+}
+
+/* การ์ดหลัก */
+.profile {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 28px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        conic-gradient(from var(--angle), var(--accent), var(--accent-2), var(--accent-3), var(--accent)) border-box;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.08);
+    transform-style: preserve-3d;
+    transition: transform 0.2s ease-out;
+    animation: rise 0.9s cubic-bezier(.2,.8,.2,1) backwards, spin 6s linear infinite;
+}
+
+@keyframes rise {
+    from { opacity: 0; transform: translateY(40px) scale(0.97); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ขอบไล่สีรอบการ์ด */
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+@keyframes spin {
+    to { --angle: 360deg; }
+}
+
+/* ฝั่งรูป */
+.photo {
+    position: relative;
+    min-height: 620px;
+    background: #cbd5e1 url("Screenshot 2026-09-21 181259.png") center top / cover no-repeat;
+    color: #fff;
+    padding: 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.photo::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(7,11,26,0.55) 0%, rgba(7,11,26,0) 30%, rgba(7,11,26,0) 55%, rgba(7,11,26,0.85) 100%);
+}
+
+.photo > * { position: relative; z-index: 1; }
+
+.photo-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.photo-top span {
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
+.pill {
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.7);
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+}
+
+.photo-bottom h3 {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.photo-bottom p {
+    margin-top: 6px;
+    font-size: 15px;
+    opacity: 0.85;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    font-size: 13px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: rgba(34,197,94,0.18);
+    border: 1px solid rgba(34,197,94,0.5);
+}
+
+.status::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 0 rgba(34,197,94,0.7);
+    animation: pulse 1.8s infinite;
+}
+
+@keyframes pulse {
+    70%  { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+
+/* ฝั่งข้อมูล */
+.info {
+    padding: 56px 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.team {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: #eff6ff;
+    padding: 6px 14px;
+    border-radius: 8px;
+}
+
+.info h1 {
+    margin-top: 18px;
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.25;
+}
+
+.info h1 .id {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.info .th-name {
+    margin-top: 4px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 17px;
+    color: var(--muted);
+}
+
+.role {
+    margin-top: 14px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.field {
+    margin-top: 20px;
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.field .box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    font-size: 16px;
+    color: var(--text);
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.field .box:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(59,130,246,0.12);
+}
+
+.field .box small {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+}
+
+.field .box.copied small {
+    color: #16a34a;
+}
+
+.btn {
+    margin-top: 28px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    padding: 15px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    background-size: 200% 100%;
+    transition: 0.4s;
+    box-shadow: 0 12px 30px rgba(59,130,246,0.35);
+}
+
+.btn:hover {
+    background-position: 100% 0;
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(139,92,246,0.4);
+}
+
+.contact {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.contact a {
+    color: var(--accent-2);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.contact a:hover {
+    text-decoration: underline;
+}
+
+/* responsive */
+@media (max-width: 860px) {
+    .profile {
+        grid-template-columns: 1fr;
+    }
+
+    .photo {
+        min-height: 460px;
+    }
+
+    .info {
+        padding: 36px 24px;
+    }
+
+    .back {
+        top: 12px;
+        left: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
+<div class="grid-bg"></div>
+
+<a class="back" href="Main.html">← Back to Team</a>
+
+<main class="profile" id="profile">
+
+    <section class="photo">
+        <div class="photo-top">
+            <span>Software Engineering</span>
+            <span class="pill">Team 1</span>
+        </div>
+
+        <div class="photo-bottom">
+            <h3>Nopparuch<br>Lanumthiang</h3>
+            <p>Quality Manager · Team 1</p>
+            <span class="status">Available</span>
+        </div>
+    </section>
+
+    <section class="info">
+        <span class="team">Team 1</span>
+
+        <h1>Nopparuch Lanumthiang <span class="id"># 67160293</span></h1>
+        <p class="th-name">นายนพรุช ลาน้ำเที่ยง</p>
+        <p class="role">Quality Manager</p>
+
+        <!-- TODO: ใส่ข้อมูลจริงแทนค่าตัวอย่างด้านล่าง -->
+        <div class="field">
+            <label>Email</label>
+            <div class="box" data-copy="your.email@example.com">
+                <span>dozkung@gmail.com</span><small>Copy</small>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Phone</label>
+            <div class="box" data-copy="+66000000000">
+                <span>0649172602</span><small>Copy</small>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Birth Date</label>
+            <div class="box" data-copy="04 July 2005">
+                <span>04 July 2005</span><small>Copy</small>
+            </div>
+        </div>
+
+        <a class="btn" href="https://github.com/dozkung" target="_blank" rel="noopener">Github</a>
+
+        <p class="contact">Facebook Contact <a href="https://www.facebook.com/nopparuch.lanumthiang.2024" target="_blank" rel="noopener">Click Me!</a></p>
+    </section>
+
+</main>
+
+<script>
+// กดเพื่อคัดลอกข้อมูล
+document.querySelectorAll('.box[data-copy]').forEach(function (box) {
+    box.addEventListener('click', function () {
+        navigator.clipboard.writeText(box.dataset.copy).then(function () {
+            var label = box.querySelector('small');
+            box.classList.add('copied');
+            label.textContent = 'Copied ✓';
+            setTimeout(function () {
+                box.classList.remove('copied');
+                label.textContent = 'Copy';
+            }, 1500);
+        });
+    });
+});
+
+// เอียงการ์ดตามเมาส์ (เฉพาะจอใหญ่)
+var card = document.getElementById('profile');
+if (window.matchMedia('(min-width: 861px) and (prefers-reduced-motion: no-preference)').matches) {
+    card.addEventListener('mousemove', function (e) {
+        var r = card.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = 'perspective(1400px) rotateY(' + (x * 6) + 'deg) rotateX(' + (-y * 6) + 'deg)';
+    });
+    card.addEventListener('mouseleave', function () {
+        card.style.transform = '';
+    });
+}
+</script>
+
+</body>
+</html>
