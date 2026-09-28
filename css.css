@@ -1,76 +1,254 @@
-/* --- Global Styles --- */
-body {
-    /* Background color for the whole page */
-    background-color: #f0f4f8; 
-    /* Foreground (text) color */
-    color: #334155; 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
-/* --- Header Styles --- */
-.header {
-    text-align: center;
-    padding: 40px 20px 20px;
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+    overflow: hidden;
+    position: relative;
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    color: #1e293b;
+/* back button */
+.back-btn {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+
+    padding: 10px 18px;
+    border-radius: 999px;
+
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+
+    color: #1e3a8a;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: 0.3s;
 }
 
-/* --- Container Styles --- */
-.card-container {
-    /* Using CSS Grid to automatically place cards side by side */
-    display: grid;
-    /* This makes the grid responsive: cards will wrap to the next line if the screen is too small */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto; /* Centers the container */
+.back-btn:hover {
+    transform: translateY(-2px) scale(1.05);
+    background: #3b82f6;
+    color: white;
+    box-shadow: 0 12px 25px rgba(59,130,246,0.4);
 }
 
-/* --- Card Styles --- */
+/* bubble background */
+body::before, body::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    filter: blur(50px);
+    animation: float 12s infinite alternate ease-in-out;
+}
+
+body::before {
+    width: 300px;
+    height: 300px;
+    top: -50px;
+    left: -50px;
+}
+
+body::after {
+    width: 250px;
+    height: 250px;
+    bottom: -50px;
+    right: -50px;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(40px); }
+}
+
+/* card */
 .card {
-    /* Background color of the card */
-    background-color: #ffffff; 
-    padding: 30px 20px;
-    border-radius: 12px;
-    text-align: center;
-    
-    /* Simple shadow: x-offset y-offset blur color */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-    
-    /* Smooth transition for hover effects */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 950px;
+    height: 520px;
+    display: flex;
+    border-radius: 30px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 25px 70px rgba(0,0,0,0.15);
 }
 
-/* Optional hover effect: lifts the card slightly and deepens the shadow */
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+/* LEFT */
+.left {
+    width: 45%;
+    position: relative;
+    overflow: hidden;
 }
 
-.card h2 {
-    margin: 15px 0 5px;
-    font-size: 1.25rem;
-    color: #0f172a;
+.left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s ease, filter 0.5s;
+    filter: brightness(1.05) contrast(1.1) saturate(1.1);
 }
 
-.card p {
-    margin: 0;
-    font-size: 0.95rem;
+.card:hover .left img {
+    transform: scale(1.08);
+}
+
+/* overlay */
+.left::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(30, 58, 138, 0.05),
+        rgba(30, 58, 138, 0.35)
+    );
+}
+
+/* glow */
+.left::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    box-shadow: inset -80px 0 120px rgba(30, 58, 138, 0.25);
+    pointer-events: none;
+}
+
+/* RIGHT */
+.right {
+    width: 55%;
+    padding: 55px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    position: relative;
+}
+
+/* shimmer */
+.right::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+    animation: shine 6s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* fade */
+.fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1s forwards ease;
+}
+
+.fade-up:nth-child(1) { animation-delay: 0.2s; }
+.fade-up:nth-child(2) { animation-delay: 0.4s; }
+.fade-up:nth-child(3) { animation-delay: 0.6s; }
+.fade-up:nth-child(4) { animation-delay: 0.8s; }
+.fade-up:nth-child(5) { animation-delay: 1s; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* text */
+.name {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.role {
+    margin-top: 6px;
+    color: #334155;
+    font-weight: 500;
+}
+
+.badge {
+    margin-top: 12px;
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 999px;
+
+    background: linear-gradient(135deg, #93c5fd, #60a5fa);
+    color: white;
+
+    box-shadow: 0 6px 20px rgba(59,130,246,0.3);
+}
+
+/* section */
+.section {
+    margin-top: 35px;
+}
+
+.section h3 {
+    margin-bottom: 10px;
+    color: #2563eb;
+}
+
+/* info */
+.info {
+    margin-bottom: 12px;
+}
+
+.label {
+    font-size: 13px;
     color: #64748b;
 }
 
-/* Placeholder for profile pictures */
-.avatar {
-    width: 80px;
-    height: 80px;
-    background-color: #e2e8f0;
-    border-radius: 50%;
-    margin: 0 auto;
+.value {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/* buttons */
+.buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.btn {
+    flex: 1;
+    padding: 13px;
+    border-radius: 14px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    box-shadow: 0 10px 25px rgba(59,130,246,0.35);
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 18px 40px rgba(59,130,246,0.45);
+}
+
+/* responsive */
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+        height: auto;
+    }
+    .left, .right {
+        width: 100%;
+    }
 }

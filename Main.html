@@ -2,273 +2,275 @@
 <html lang="th">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Team</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Team</title>
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
 
-body {
-    background: linear-gradient(135deg, #dbeafe, #eff6ff);
-    min-height: 100vh;
-}
+        body {
+            background: linear-gradient(135deg, #dbeafe, #eff6ff);
+            min-height: 100vh;
+        }
 
-/* container กลาง */
-.wrapper {
-    max-width: 1200px;
-    margin: auto;
-    padding: 60px 20px;
-}
+        /* container กลาง */
+        .wrapper {
+            max-width: 1200px;
+            margin: auto;
+            padding: 60px 20px;
+        }
 
-/* header */
-.header {
-    text-align: center;
-    margin-bottom: 50px;
-}
+        /* header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-.header h1 {
-    font-size: 38px;
-    color: #1e3a8a;
-}
+        .header h1 {
+            font-size: 38px;
+            color: #1e3a8a;
+        }
 
-.header p {
-    margin-top: 10px;
-    color: #64748b;
-}
+        .header p {
+            margin-top: 10px;
+            color: #64748b;
+        }
 
-.system-details {
-    background: rgba(255,255,255,0.8);
-    border: 2px solid #3b82f6;
-    border-radius: 12px;
-    padding: 28px 32px;
-    margin-bottom: 42px;
-    box-shadow: 0 10px 30px rgba(30,58,138,0.08);
-}
+        .system-details {
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #3b82f6;
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin-bottom: 42px;
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.08);
+        }
 
-.system-details h2 {
-    margin-bottom: 18px;
-    color: #1e3a8a;
-    text-align: center;
-    font-size: 28px;
-}
+        .system-details h2 {
+            margin-bottom: 18px;
+            color: #1e3a8a;
+            text-align: center;
+            font-size: 28px;
+        }
 
-.system-details p {
-    margin: 10px 0;
-    color: #334155;
-    font-size: 17px;
-    line-height: 1.6;
-}
+        .system-details p {
+            margin: 10px 0;
+            color: #334155;
+            font-size: 17px;
+            line-height: 1.6;
+        }
 
-.system-details strong {
-    color: #1e3a8a;
-}
+        .system-details strong {
+            color: #1e3a8a;
+        }
 
-/* grid */
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 30px;
-}
+        /* grid */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 30px;
+        }
 
-/* card */
-.card {
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(15px);
-    border-radius: 24px;
-    padding: 30px 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.35s;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-}
+        /* card */
+        .card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.35s;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
 
-/* hover */
-.card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 30px 70px rgba(59,130,246,0.25);
-}
+        /* hover */
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 70px rgba(59, 130, 246, 0.25);
+        }
 
-/* avatar */
-.avatar {
-    width: 110px;
-    height: 110px;
-    margin: auto;
-    border-radius: 50%;
-    padding: 4px;
-    background: linear-gradient(135deg, #60a5fa, #93c5fd);
-    margin-bottom: 18px;
-}
+        /* avatar */
+        .avatar {
+            width: 110px;
+            height: 110px;
+            margin: auto;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #60a5fa, #93c5fd);
+            margin-bottom: 18px;
+        }
 
-.avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-}
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
 
-/* name */
-.card h2 {
-    font-size: 18px;
-    color: #1e293b;
-    margin-bottom: 5px;
-}
+        /* name */
+        .card h2 {
+            font-size: 18px;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
 
-/* role */
-.card p {
-    font-size: 14px;
-    color: #64748b;
-}
+        /* role */
+        .card p {
+            font-size: 14px;
+            color: #64748b;
+        }
 
-/* hover text */
-.card:hover h2 {
-    color: #2563eb;
-}
+        /* hover text */
+        .card:hover h2 {
+            color: #2563eb;
+        }
 
-/* responsive ปรับคอลัมน์ */
-@media (min-width: 1024px) {
-    .card-container {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
+        /* responsive ปรับคอลัมน์ */
+        @media (min-width: 1024px) {
+            .card-container {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
 
-@media (max-width: 1023px) {
-    .card-container {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+        @media (max-width: 1023px) {
+            .card-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
 
-@media (max-width: 768px) {
-    .card-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
+        @media (max-width: 768px) {
+            .card-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
 
-@media (max-width: 480px) {
-    .card-container {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
+        @media (max-width: 480px) {
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="wrapper">
+    <div class="wrapper">
 
-    <section class="system-details">
-        <h2>รายละเอียดของระบบ AccOne</h2>
-        <p><strong>วัตถุประสงค์:</strong>พัฒนาขึ้นเพื่อเป็นระบบยืนยันตัวตนส่วนกลาง
-และ Web Portal สําหรับเข้าถึงระบบปลายทางต่าง ๆ </p>
-        <p><strong>เครื่องมือที่ใช้:</strong> Visual Studio Code, GitHub, Figma</p>
-        <p><strong>เทคโนโลยี:</strong> HTML, CSS, TypeScript</p>
-        <p><strong>เฟรมเวิร์ก:</strong> Next.js, Express.js</p>
-    </section>
+        <section class="system-details">
+            <h2>รายละเอียดของระบบ AccOne</h2>
+            <p><strong>วัตถุประสงค์:</strong>พัฒนาขึ้นเพื่อเป็นระบบยืนยันตัวตนส่วนกลาง
+                และ Web Portal สําหรับเข้าถึงระบบปลายทางต่าง ๆ </p>
+            <p><strong>เครื่องมือที่ใช้:</strong> Visual Studio Code, GitHub, Figma</p>
+            <p><strong>เทคโนโลยี:</strong> HTML, CSS, TypeScript</p>
+            <p><strong>เฟรมเวิร์ก:</strong> Next.js, Express.js</p>
+        </section>
 
-    <header class="header">
-        <h1>💙 Team 1 </h1>
-        <p>Meet our awesome team members</p>
-    </header>
+        <header class="header">
+            <h1>💙 Team 1 </h1>
+            <p>Meet our awesome team members</p>
+        </header>
 
-    <main class="card-container">
+        <main class="card-container">
 
-        <div class="card" onclick="">
-            <div class="avatar">
-                <img src="796267460_1394188049082412_1551158896147776298_n.jpg">
+            <div class="card" onclick="onclick=window.location.href='67160307.html'">
+                <div class="avatar">
+                    <img src="796267460_1394188049082412_1551158896147776298_n.jpg">
+                </div>
+                <h2>นายสมศักดิ์ สุขทองเเท้ </h2>
+                <p>Team Leader</p>
             </div>
-            <h2>นายสมศักดิ์ สุขทองเเท้ </h2>
-            <p>Team Leader</p>
-        </div>
 
-        <div class="card" onclick="">
-            <div class="avatar">
-                <img src="">
+            <div class="card" onclick="location.href='67160149.html'">
+                <div class="avatar">
+                    <img src="images/67160149.jpg">
+                </div>
+                <h2>นางสาวรุจิรัตน์ หนาแน่น </h2>
+                <p>Planning Manager</p>
             </div>
-            <h2>นางสาวรุจิรัตน์ หนาแน่น </h2>
-            <p>Planning Manager</p>
-        </div>
 
-        <div class="card" onclick="window.location.href='67160290.html'">
-            <div class="avatar">
-                <img src="">
+            <div class="card" onclick="window.location.href='67160290.html'">
+                <div class="avatar">
+                    <img src="">
+                </div>
+                <h2>นายธีรพงศ์ ชื้นวงค์</h2>
+                <p>Planning Engineer</p>
             </div>
-            <h2>นายธีรพงศ์ ชื้นวงค์</h2>
-            <p>Planning Engineer</p>
-        </div>
 
-        <div class="card" onclick="">
-            <div class="avatar">
-                <img src="Screenshot 2026-09-21 181259.png">
+            <div class="card" onclick="location.href='Profile-67160293.html'">
+                <div class="avatar">
+                    <img src="images/Screenshot 2026-09-21 181259.png">
+                </div>
+                <h2>นายนพรุช ลาน้ำเที่ยง </h2>
+                <p>Quality Manager</p>
             </div>
-            <h2>นายนพรุช ลาน้ำเที่ยง </h2>
-            <p>Quality Manager</p>
-        </div>
 
-        <div class="card" onclick="">
-            <div class="avatar">
-                <img src="67160443.jpg">
+            <div class="card" onclick="window.location.href='67160443.html'">
+                <div class="avatar">
+                    <img src="images/67160443.jpg">
+                </div>
+                <h2>นายนันท์ธวัช ทองมี</h2>
+                <p>Quality Engineer</p>
             </div>
-            <h2>นายนันท์ธวัช ทองมี</h2>
-            <p>Quality Engineer</p>
-        </div>
 
-         <div class="card" onclick="">
-            <div class="avatar">
-                <img src="">
+            <div class="card" onclick="window.location.href='67160148.html'">
+                <div class="avatar">
+                    <img src="images/FIIW.jpg">
+                </div>
+                <h2>นายปกาสิต ชินวงค์</h2>
+                <p>Quality Engineer</p>
             </div>
-            <h2>นายปกาสิต ชินวงค์</h2>
-            <p>Quality Engineer</p>
-        </div>
 
-        <div class="card" onclick="">
-            <div class="avatar">
-                <img src="">
+            <div class="card" onclick="window.location.href='67160281.html'">
+                <div class="avatar">
+                    <img
+                        src="https://scontent-bkk1-2.xx.fbcdn.net/v/t1.6435-9/40946789_2269878999706840_2314201926104776704_n.jpg?stp=dst-jpg_tt6&cstp=mx960x466&ctp=s960x466&_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=mv5wCCGSbZ8Q7kNvwGx1Iiy&_nc_oc=AdpRLPOTztdQOYt5azpl-wt1a6GXEwl2Mltkr61rmXghwP_oSxkCplaicQQyecb6d0k&_nc_zt=23&_nc_ht=scontent-bkk1-2.xx&_nc_gid=vnDFdM5ykuTeSOutNyqv5w&_nc_ss=7b2a8&oh=00_AQLjHQ41rQuNLijHZmfzl4YJ6Q8kjW79SOZq9R9esgay_A&oe=6AD899F1">
+                </div>
+                <h2>นายคณุตม์ ปุเรตัง</h2>
+                <p>Development Manager</p>
             </div>
-            <h2>นายคณุตม์ ปุเรตัง</h2>
-            <p>Developer Manager</p>
-        </div>
 
-        <div class="card" onclick="window.open('67160455.html', '_blank')">
-            <div class="avatar">
-                <img src="'images/455.jpg">
+            <div class="card" onclick="window.open('67160455.html', '_blank')">
+                <div class="avatar">
+                    <img src="images/455.jpg">
+                </div>
+                <h2>นายเอกกฤต โพธิ์วัด</h2>
+                <p>Development Engineer</p>
             </div>
-            <h2>นายเอกกฤต โพธิ์วัด</h2>
-            <p>Developer Engineer</p>
-        </div>
 
-        <div class="card" onclick="">
-            <div class="avatar">
-                <img src="">
+            <div class="card" onclick="window.open('67160139.html', '_blank')">
+                <div class="avatar">
+                    <img src="images/139.jpg">
+                </div>
+                <h2>นายธีรภัทร พาทอน</h2>
+                <p>Development Engineer</p>
             </div>
-            <h2>นายธีรภัทร พาทอน</h2>
-            <p>Developer Engineer</p>
-        </div>
 
-        <div class="card" onclick="">
-            <div class="avatar">
-                <img src="">
+            <div class="card" onclick="window.location.href='67160283.html'">
+                <div class="avatar">
+                    <img src="images/67160283img.jpg">
+                </div>
+                <h2>นายคุณากร สายสมร</h2>
+                <p>Support Manager</p>
             </div>
-            <h2>นายคุณากร สายสมร</h2>
-            <p>Support Manager</p>
-        </div>
 
 
-        <div class="card" onclick="">
-            <div class="avatar">
-                <img src="">
+            <div class="card" onclick="window.location.href='67160121.html'">
+                <div class="avatar">
+                    <img src="images/67160121.jpg">
+                </div>
+                <h2>นายวรพล ตันตระกูล</h2>
+                <p>Support Engineer</p>
             </div>
-            <h2>นายวรพล ตันตระกูล</h2>
-            <p>Support Engineer</p>
-        </div>
 
-    </main>
+        </main>
 
-</div>
+    </div>
 
 </body>
+
 </html>
